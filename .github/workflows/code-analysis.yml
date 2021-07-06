@@ -27,6 +27,7 @@ jobs:
     #container: zeronorth/integration:latest
     steps:
     - name: Run ZN IC
+      run: | 
         docker run -e POLICY_ID=Ht27RaViRyWCATVfanRbKg -v ${PWD}:/code -v ${PWD}:/results -e INCLUDE_FILES=/code/project.zip -e CYBRIC_API_KEY=${{ env.ZN_API_KEY }} zeronorth/integration:latest python cybric.py
         
     - name: NPM Install
