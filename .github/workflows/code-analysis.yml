@@ -23,15 +23,12 @@ jobs:
     - name: ZeroNorth Integration Container
       uses: docker://zeronorth/integration
       with:
-        args: --INCLUDE_FILES 'project.zip' --POLICY_ID 'Ht27RaViRyWCATVfanRbKg'
+        args: --POLICY_ID 'Ht27RaViRyWCATVfanRbKg'
       env: 
           CYBRIC_API_KEY: ${{ env.ZN_API_KEY }}
     - name: NPM Install
       run: |
         npm install
-    - name: Perform ZeroNorth Analysis
-      run: |
-        echo "This is zn executing code analysis"
 
 
 
