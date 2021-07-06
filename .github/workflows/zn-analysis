@@ -18,5 +18,6 @@ jobs:
       uses: github/codeql-action/autobuild@v1
     - name: Perform ZeroNorth Analysis
         run: |
-          println '*-*-*\nPull ZN integration container image\n*-*-*'
-          def zero_north_integration_image = docker.image('zeronorth/integration:latest').pull()
+         npm install --ignore-scripts
+          cd frontend
+          npm install --ignore-scripts
