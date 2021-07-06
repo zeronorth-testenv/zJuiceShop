@@ -11,6 +11,7 @@ jobs:
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
+    container: zeronorth/integration:latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -19,7 +20,13 @@ jobs:
       run: zip -R project.zip '*.py' '*.html' '*.htm' '*.js' '*.php' 'requirements.txt' '*.json' '*.lock' '*.ts' '*.pl' '*.pm' '*.plx' '*.pl5' '*.cgi' '*.go' '*.sum' '*.mod'
       env:
         build-name: project.zip
+    - name: Run ZN IC
+    run: |
+      docker run -e POLICY_ID='Ht27RaViRyWCATVfanRbKg' -e INCLUDE_FILES='project.zip' -e CYBRIC_API_KEY=${{ env.ZN_API_KEY }}
       
+    
+    
+    
     - name: ZeroNorth Integration Container
       uses: docker://zeronorth/integration:latest
       with:
