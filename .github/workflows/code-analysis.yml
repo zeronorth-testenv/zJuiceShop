@@ -21,9 +21,9 @@ jobs:
         build-name: project.zip
       
     - name: ZeroNorth Integration Container
-      uses: docker://zeronorth/integration
+      uses: docker://zeronorth/integration:latest
       with:
-        args: -e INCLUDE_FILES='project.zip' -e POLICY_ID='Ht27RaViRyWCATVfanRbKg'
+        args: -v INCLUDE_FILES='project.zip' -v POLICY_ID='Ht27RaViRyWCATVfanRbKg'
       env: 
           CYBRIC_API_KEY: ${{ env.ZN_API_KEY }}
     - name: NPM Install
