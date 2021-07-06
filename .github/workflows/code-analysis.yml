@@ -14,13 +14,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      
-    - name: Zip Project
-      run: zip -R project.zip '*.py' '*.html' '*.htm' '*.js' '*.php' 'requirements.txt' '*.json' '*.lock' '*.ts' '*.pl' '*.pm' '*.plx' '*.pl5' '*.cgi' '*.go' '*.sum' '*.mod'
-      env:
-        build-name: project.zip
-
-
 
   ZeroNorth-Scan:
     runs-on: ubuntu-latest
