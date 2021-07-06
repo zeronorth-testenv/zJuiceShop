@@ -7,18 +7,12 @@ on:
     - cron: '0 18 * * 6'
 
 jobs:
-  ZeroNorth-Build:
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
   ZeroNorth-Scan:
     runs-on: ubuntu-latest
     #container: zeronorth/integration:latest
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: Run ZN IC
       run: | 
         ls -la ${{env.GITHUB_WORKSPACE}} && docker run -e POLICY_ID=Ht27RaViRyWCATVfanRbKg -v ${{ env.GITHUB_WORKSPACE }}:/code -v ${{ env.GITHUB_WORKSPACE }}:/results -e INCLUDE_FILES=/code/project.zip -e LOG_LEVEL=DEBUG -e CYBRIC_API_KEY=${{ secrets.ZN_API_KEY }} zeronorth/integration:latest ls -la /code
