@@ -19,7 +19,7 @@ jobs:
       with:
         args: --CUSTOMER_ARTIFACTS_PATH './app.ts' --POLICY_ID 'Ht27RaViRyWCATVfanRbKg'
       env: 
-          CYBRIC_API_KEY=${{ env.ZN_API_KEY }}
+          CYBRIC_API_KEY: ${{ env.ZN_API_KEY }}
     - name: NPM Install
       run: |
         npm install
