@@ -14,21 +14,15 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Autobuild
+    - name: ZeroNorth Integration Container
+      uses: docker://zeronorth/integration
+    - name: NPM Install
       run: |
         npm install
     - name: Perform ZeroNorth Analysis
       run: |
         echo "This is zn executing code analysis"
-        
-jobs:
-  ZeroNorth-IC-Download:
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    steps:
-    - name: ZeroNorth Integration Container
-      uses: docker://zeronorth/integration
-      run: |
-        echo "This is zn ic"
+
+
+
     
