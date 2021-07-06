@@ -30,12 +30,6 @@ jobs:
       run: |
         echo "docker run -e POLICY_ID='Ht27RaViRyWCATVfanRbKg' -e INCLUDE_FILES='project.zip' -e CYBRIC_API_KEY=${{ env.ZN_API_KEY }}"
 
-    - name: ZeroNorth Integration Container
-      uses: docker://zeronorth/integration:latest
-      with:
-        args: -v INCLUDE_FILES='project.zip' -v POLICY_ID='Ht27RaViRyWCATVfanRbKg'
-      env: 
-          CYBRIC_API_KEY: ${{ env.ZN_API_KEY }}
     - name: NPM Install
       run: |
         npm install
