@@ -1,0 +1,22 @@
+name: "ZeroNorth Scanning"
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 18 * * 6'
+
+jobs:
+  ZeroNorth-Build:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
+    - name: Perform ZeroNorth Analysis
+        run: |
+          println '*-*-*\nPull ZN integration container image\n*-*-*'
+          def zero_north_integration_image = docker.image('zeronorth/integration:latest').pull()
