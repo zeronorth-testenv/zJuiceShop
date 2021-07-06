@@ -21,6 +21,15 @@ jobs:
         build-name: project.zip
 
 
+
+  ZeroNorth-Scan:
+    runs-on: ubuntu-latest
+    container: zeronorth/integration:latest
+    steps:
+    - name: Run ZN IC
+      run: |
+        echo "docker run -e POLICY_ID='Ht27RaViRyWCATVfanRbKg' -e INCLUDE_FILES='project.zip' -e CYBRIC_API_KEY=${{ env.ZN_API_KEY }}"
+
     - name: ZeroNorth Integration Container
       uses: docker://zeronorth/integration:latest
       with:
@@ -30,13 +39,5 @@ jobs:
     - name: NPM Install
       run: |
         npm install
-
-
-
-    - name: Run ZN IC
-      run: |
-        echo "docker run -e POLICY_ID='Ht27RaViRyWCATVfanRbKg' -e INCLUDE_FILES='project.zip' -e CYBRIC_API_KEY=${{ env.ZN_API_KEY }}"
-
-  
 
     
