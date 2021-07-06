@@ -39,7 +39,6 @@ overview please visit the official project page:
 <https://owasp-juice.shop>
 
 ## Table of contents
-Test edit
 - [Setup](#setup)
   - [Deploy on Heroku (free ($0/month) dyno)](#deploy-on-heroku-free-0month-dyno)
   - [From Sources](#from-sources)
