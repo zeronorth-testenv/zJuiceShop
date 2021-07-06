@@ -28,7 +28,7 @@ jobs:
     steps:
     - name: Run ZN IC
       run: | 
-        ls -la ${{env.GITHUB_WORKSPACE}}:/code docker run -e POLICY_ID=Ht27RaViRyWCATVfanRbKg -v ${{ env.GITHUB_WORKSPACE }}:/code -v ${{ env.GITHUB_WORKSPACE }}:/results -e INCLUDE_FILES=/code/project.zip -e LOG_LEVEL=DEBUG -e CYBRIC_API_KEY=${{ secrets.ZN_API_KEY }} zeronorth/integration:latest ls -la /code
+        ls -la ${{env.GITHUB_WORKSPACE}} docker run -e POLICY_ID=Ht27RaViRyWCATVfanRbKg -v ${{ env.GITHUB_WORKSPACE }}:/code -v ${{ env.GITHUB_WORKSPACE }}:/results -e INCLUDE_FILES=/code/project.zip -e LOG_LEVEL=DEBUG -e CYBRIC_API_KEY=${{ secrets.ZN_API_KEY }} zeronorth/integration:latest ls -la /code
         
     - name: NPM Install
       run: |
