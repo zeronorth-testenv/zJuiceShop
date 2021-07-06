@@ -20,3 +20,15 @@ jobs:
     - name: Perform ZeroNorth Analysis
       run: |
         echo "This is zn executing code analysis"
+        
+jobs:
+  ZeroNorth-IC-Download:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+    - name: ZeroNorth Integration Container
+      uses: docker://zeronorth/integration
+      run: |
+        echo "This is zn ic"
+    
