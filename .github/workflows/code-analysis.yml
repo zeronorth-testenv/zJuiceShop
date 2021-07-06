@@ -15,7 +15,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+      run: |
+        npm install
     - name: Perform ZeroNorth Analysis
       run: |
         echo "This is zn executing code analysis"
