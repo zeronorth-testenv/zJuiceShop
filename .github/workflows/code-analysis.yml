@@ -15,8 +15,6 @@ jobs:
     - name: ZN OWASP DepCheck
       run: | 
         docker run -e POLICY_ID=$OWASP_DepCheck -v $GITHUB_WORKSPACE:/code -v $GITHUB_WORKSPACE:/results -e INCLUDE_FILES=/code/project.zip -e LOG_LEVEL=DEBUG -e CYBRIC_API_KEY=${{ secrets.ZN_API_KEY }} zeronorth/integration:latest python cybric.py
-      env:
-        OWASP_DepCheck: Ht27RaViRyWCATVfanRbKg
     - name: NPM Install
       run: |
         npm install
