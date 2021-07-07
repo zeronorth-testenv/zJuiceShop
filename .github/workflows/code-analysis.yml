@@ -9,6 +9,8 @@ on:
 jobs:
   ZeroNorth-Scan:
     runs-on: ubuntu-latest
+    env:
+      OWASP_DEPCHECK: Ht27RaViRyWCATVfanRbKg
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
