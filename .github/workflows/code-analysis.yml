@@ -7,7 +7,7 @@ on:
     - cron: '0 18 * * 6'
 
 jobs:
-  ZeroNorth-Scan:
+  ZeroNorth-Scanning:
     runs-on: ubuntu-latest
     env:
       OWASP_DEPCHECK: Ht27RaViRyWCATVfanRbKg
@@ -15,13 +15,14 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: NPM Install
+      run: |
+        npm install
     - name: OWASP DepCheck
       run: | 
         docker run -e POLICY_ID=${{ env.OWASP_DEPCHECK }} -v $GITHUB_WORKSPACE:/code -v $GITHUB_WORKSPACE:/results -e INCLUDE_FILES=/code/project.zip -e LOG_LEVEL=DEBUG -e CYBRIC_API_KEY=${{ secrets.ZN_API_KEY }} zeronorth/integration:latest python cybric.py
     - name: Sonarqube
       run: | 
         docker run -e POLICY_ID=${{ env.SONARQUBE }} -v $GITHUB_WORKSPACE:/code -v $GITHUB_WORKSPACE:/results -e INCLUDE_FILES=/code/project.zip -e LOG_LEVEL=DEBUG -e CYBRIC_API_KEY=${{ secrets.ZN_API_KEY }} zeronorth/integration:latest python cybric.py
-    - name: NPM Install
-      run: |
-        npm install
+
  
