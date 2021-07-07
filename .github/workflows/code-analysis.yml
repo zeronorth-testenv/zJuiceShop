@@ -16,7 +16,7 @@ jobs:
       run: | 
         docker run -e POLICY_ID=DEPCHECK -v $GITHUB_WORKSPACE:/code -v $GITHUB_WORKSPACE:/results -e INCLUDE_FILES=/code/project.zip -e LOG_LEVEL=DEBUG -e CYBRIC_API_KEY=${{ secrets.ZN_API_KEY }} zeronorth/integration:latest python cybric.py
       env:
-        DEPCHECK: ${{ env.OWASP_DEPCHECK }}
+        DEPCHECK: $OWASP_DEPCHECK
     - name: NPM Install
       run: |
         npm install
