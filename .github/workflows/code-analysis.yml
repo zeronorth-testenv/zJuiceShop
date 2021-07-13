@@ -9,20 +9,37 @@ on:
 jobs:
   ZeroNorth-Scanning:
     runs-on: ubuntu-latest
-    env:
-      OWASP_DEPCHECK: Ht27RaViRyWCATVfanRbKg
-      SONARQUBE: HwMBTrfpTzWrjFpQWI0RFQ
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: NPM Install
       run: |
         npm install
-    - name: OWASP DepCheck
-      run: | 
-        docker run -e POLICY_ID=${{ env.OWASP_DEPCHECK }} -v $GITHUB_WORKSPACE:/code -v $GITHUB_WORKSPACE:/results -e INCLUDE_FILES=/code/project.zip -e LOG_LEVEL=DEBUG -e CYBRIC_API_KEY=${{ secrets.ZN_API_KEY }} zeronorth/integration:latest python cybric.py
-    - name: Sonarqube
-      run: | 
-        docker run -e POLICY_ID=${{ env.SONARQUBE }} -v $GITHUB_WORKSPACE:/code -v $GITHUB_WORKSPACE:/results -e INCLUDE_FILES=/code/project.zip -e LOG_LEVEL=DEBUG -e CYBRIC_API_KEY=${{ secrets.ZN_API_KEY }} zeronorth/integration:latest python cybric.py
+#     Loops through specified scenarios. Ensure scenearios does not have spaces.Set secret.ZN_API_KEY prior to initiating. 
+    - name: ZeroNorth Security
+      env:       
+        SCENARIOS: bandit sonarqube owaspv5
+        WAIT: false # true, false. Must be set to true if gating
+        FAIL_ON: 0  # 0, CRITICAL, HIGH, MEDIUM, LOW, INFO
+                    # Defaults to 0 which is disregard all issue criticality
+      run: |
+        for scenario in $SCENARIOS; do docker run -e SCENARIO=$scenario -e POLICY_NAME=${{github.event.repository.name}}:$scenario -e TARGET_NAME=${{github.event.repository.name}} -e FAIL_ON_HIGH_SEVERITY=$FAIL_ON -e STAGE=build -e WAIT_FOR_COMPLETION=$WAIT -v $GITHUB_WORKSPACE:/code -v $GITHUB_WORKSPACE:/results -v /var/run/docker.sock:/var/run/docker.sock -e SONAR_JAVA_LIBRARY_DIR=\".\" -e SONAR_JAVA_BINARY_DIR=\".\" -e CYBRIC_API_KEY=${{secrets.ZN_API_KEY}} -e LOG_LEVEL=1 zeronorth/integration:latest python cybric.py; done
+#     - uses: actions/upload-artifact@v2
+#       with:
+#         name: artifact
+#         if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn` 
+#         path: ${{ github.workspace }}
+#         retention-days: 1
+#   security:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/download-artifact@v2
+#       with:
+#         name: artifact
+#     - name: ZeroNorth Security
+#       env:       
+#         SCENARIOS: bandit sonarqube owaspv5
+#       run: |
+#         for scenario in $SCENARIOS; do docker run -e SCENARIO=$scenario -e POLICY_NAME=${{github.event.repository.name}}:$scenario -e TARGET_NAME=${{github.event.repository.name}} -e STAGE=build -v $GITHUB_WORKSPACE:/code -v $GITHUB_WORKSPACE:/results -v /var/run/docker.sock:/var/run/docker.sock -e LOG_LEVEL=DEBUG -e SONAR_JAVA_LIBRARY_DIR=\".\" -e SONAR_JAVA_BINARY_DIR=\".\" -e CYBRIC_API_KEY=${{secrets.ZN_API_KEY}} zeronorth/integration:latest python cybric.py; done
 
- 
